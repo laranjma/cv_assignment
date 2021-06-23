@@ -1,4 +1,5 @@
 <launch>
+  <arg name="dataset" value="/home/matheus/Documents/tii/dataset/archaeo_sequence_6_raw_data/raw_data/images_sequence_6/*.png"/>
 
   <!-- Run ORB SLAM 2 -->
   <node name="orb_slam2_mono" pkg="orb_slam2_ros"
@@ -25,7 +26,10 @@
   </node>
 
   <!-- Publish images from dataset -->
-  <node pkg="imgproc" type="test_imgPublisher" name="test_imgPublisher" output="screen"/>
+  <node pkg="imgproc" type="test_imgPublisher" name="test_imgPublisher" output="screen">
+    <param name="camera_topic" type="string" value="/camera/image_raw"/>
+    <param name="dataset_folder" type="string" value="$(arg dataset)"/>
+  </node>
 
   <!-- Publish camera info from dataset -->
   <include file="$(find imgproc)/launch/publish_camerainfo.launch"/>

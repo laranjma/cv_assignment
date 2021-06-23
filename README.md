@@ -25,4 +25,9 @@ To launch the localization node:
 ```
 roslaunch imgproc aqualoc_orb_slam2.launch
 ```
+Set the data location with the first argument of the launch file.
 Use ```RVIZ``` and ```image_view``` to visualize the map and debugging image, respectively.
+The camera's poses are stored in ```/tmp/orbslam_pose.dat```.
+
+To plot the estimated and ground truth trajectories enter:
+```python plot3D.py ../data/colmap_traj_sequence_6.txt ../data/orbslam_pose.dat```
