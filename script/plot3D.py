@@ -11,6 +11,7 @@ matplotlib.rcParams['text.usetex'] = True
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+import math as math
 from math import asin, sqrt
 
 
@@ -44,6 +45,24 @@ v_max = 0.3
 dv = 0.1
 '''
 	
+# Calculates Rotation Matrix given euler angles.
+
+def eulerAnglesToRotationMatrix(theta):
+    R_x = np.array([[1,         0,                  0                   ],
+                    [0,         math.cos(theta[0]), -math.sin(theta[0]) ],
+	                [0,         math.sin(theta[0]), math.cos(theta[0])  ]])
+    
+    R_y = np.array([[math.cos(theta[1]),    0,      math.sin(theta[1])  ],
+	                [0,                     1,      0                   ],
+	                [-math.sin(theta[1]),   0,      math.cos(theta[1])  ]])
+
+    R_z = np.array([[math.cos(theta[2]),    -math.sin(theta[2]),    0],
+                    [math.sin(theta[2]),    math.cos(theta[2]),     0],
+	                [0,                     0,                      1]])
+
+    R = np.dot(R_z, np.dot( R_y, R_x ))
+	 
+    return R
 
 def plotTrajectory(traj_gt, traj_es, labelx, labely):
     # Data to plot
@@ -127,11 +146,18 @@ if __name__ == '__main__':
 
     traj_grt = readTrajectory(filepath1)
     traj_est = readTrajectory(filepath2)
-    traj_est[:,2] = -traj_est[:,2]
-    traj_est[:,0:3] = traj_est[:,0:3] + traj_grt[0,0:3]
+    #traj_est[:,2] = -traj_est[:,2]
     
+
+    theta = np.array([0,math.pi,-math.pi/2])
+    R = eulerAnglesToRotationMatrix(theta)
+    for k in range(0, traj_est[:,0].size):
+        #print(k)
+        traj_est[k,0:3] = np.matmul(R,traj_est[k,0:3])
+
     '''
 	'''    	
+    traj_est[:,0:3] = traj_est[:,0:3] + traj_grt[0,0:3]
     print(traj_grt[2,:])
     plotTrajectory(traj_grt, traj_est, 'x(m)', 'y(m)')
     #plotTetherShape("tethershape.eps",sest)
