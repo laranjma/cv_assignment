@@ -9,5 +9,6 @@ This code was tested on:
 1. Ubuntu 18.04
 2. ROS Melodic
 
-Instructions to install ORB-SLAM 2:<\br>
+Instructions to install ORB-SLAM 2:
+
 [https://github.com/appliedAI-Initiative/orb_slam_2_ros](https://github.com/appliedAI-Initiative/orb_slam_2_ros)
