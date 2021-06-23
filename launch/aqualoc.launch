@@ -1,0 +1,5 @@
+<launch>
+  <arg name="bag_file" value="/home/matheus/Documents/tii/dataset/archaeo_sequence_6_bag/bag/archaeo_sequence_6.bag"/>
+  <node pkg="rosbag" type="play" name="player" output="screen" args="--clock $(arg bag_file)"/>
+
+</launch>
