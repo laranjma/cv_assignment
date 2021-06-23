@@ -25,4 +25,4 @@ To launch the localization node:
 ```
 roslaunch imgproc aqualoc_orb_slam2.launch
 ```
-Utilize ```RVIZ``` and ```image_view``` to visualize the map and debugging image, respectively.
+Use ```RVIZ``` and ```image_view``` to visualize the map and debugging image, respectively.
